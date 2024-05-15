@@ -62,8 +62,8 @@ export class RideRequestServiceBase {
         where: { id: parentId },
       })
       .rideDetailsItems(args);
-  }
+  } 
   async CancelRide(args: string): Promise<string> {
     throw new Error("Not implemented");
-  }
+  } 
 }

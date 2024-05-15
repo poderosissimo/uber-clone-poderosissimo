@@ -245,8 +245,7 @@ export class RideRequestControllerBase {
       data,
       select: { id: true },
     });
-  }
-
+  } 
   @common.Post("/cancel")
   @swagger.ApiOkResponse({
     type: String,
@@ -262,5 +261,5 @@ export class RideRequestControllerBase {
     body: string
   ): Promise<string> {
     return this.service.CancelRide(body);
-  }
+  } 
 }

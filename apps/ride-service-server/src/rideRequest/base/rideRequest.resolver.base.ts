@@ -111,13 +111,12 @@ export class RideRequestResolverBase {
     }
 
     return results;
-  }
-
+  }  
   @graphql.Mutation(() => String)
   async CancelRide(
     @graphql.Args()
     args: string
   ): Promise<string> {
     return this.service.CancelRide(args);
-  }
+  } 
 }
