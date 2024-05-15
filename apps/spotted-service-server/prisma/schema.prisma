@@ -1,0 +1,56 @@
+datasource db {
+  provider = "postgresql"
+  url      = env("DB_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model User {
+  createdAt DateTime @default(now())
+  email     String?
+  id        String   @id @default(cuid())
+  password  String?
+  updatedAt DateTime @updatedAt
+  username  String?
+}
+
+model Post {
+  author     String?
+  comments   Comment[]
+  content    String?
+  createdAt  DateTime   @default(now())
+  id         String     @id @default(cuid())
+  postAuthor String?
+  reactions  Reaction[]
+  updatedAt  DateTime   @updatedAt
+}
+
+model Comment {
+  author        String?
+  commentAuthor String?
+  content       String?
+  createdAt     DateTime   @default(now())
+  id            String     @id @default(cuid())
+  post          Post?      @relation(fields: [postId], references: [id])
+  postId        String?
+  reactions     Reaction[]
+  updatedAt     DateTime   @updatedAt
+}
+
+model Reaction {
+  author       String?
+  comment      Comment?                  @relation(fields: [commentId], references: [id])
+  commentId    String?
+  createdAt    DateTime                  @default(now())
+  id           String                    @id @default(cuid())
+  post         Post?                     @relation(fields: [postId], references: [id])
+  postId       String?
+  reactionType EnumReactionReactionType?
+  updatedAt    DateTime                  @updatedAt
+}
+
+enum EnumReactionReactionType {
+  Option1
+}
