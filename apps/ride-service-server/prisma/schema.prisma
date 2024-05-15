@@ -1,0 +1,37 @@
+datasource db {
+  provider = "postgresql"
+  url      = env("DB_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model RideDetails {
+  createdAt     DateTime     @default(now())
+  distance      Float?
+  endTime       DateTime?
+  feedback      String?
+  id            String       @id @default(cuid())
+  rideRequest   RideRequest? @relation(fields: [rideRequestId], references: [id])
+  rideRequestId String?
+  startTime     DateTime?
+  updatedAt     DateTime     @updatedAt
+}
+
+model RideRequest {
+  createdAt        DateTime               @default(now())
+  driverId         String?
+  dropLocation     String?
+  fare             Float?
+  id               String                 @id @default(cuid())
+  pickupLocation   String?
+  rideDetailsItems RideDetails[]
+  status           EnumRideRequestStatus?
+  updatedAt        DateTime               @updatedAt
+  userId           String?
+}
+
+enum EnumRideRequestStatus {
+  Option1
+}
